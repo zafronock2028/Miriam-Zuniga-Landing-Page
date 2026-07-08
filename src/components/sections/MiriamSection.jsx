@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
-import { gsap, prefersReducedMotion } from '../../lib/motion'
+import { gsap, ScrollTrigger, prefersReducedMotion } from '../../lib/motion'
 import SplitReveal from '../effects/SplitReveal'
 import FadeUp from '../effects/FadeUp'
 import { copy } from '../../data/copy'
@@ -28,23 +28,30 @@ export default function MiriamSection() {
         },
       })
 
-      // Tagline: palabras entran escalonadas con scrub
-      gsap.fromTo(
-        '.tagline-word',
-        { yPercent: 60, opacity: 0.1 },
-        {
-          yPercent: 0,
-          opacity: 1,
-          stagger: 0.15,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.tagline-block',
-            start: 'top 90%',
-            end: 'top 40%',
-            scrub: 1,
-          },
-        }
-      )
+      // Tagline marquee: desplazamiento infinito, acelera con el scroll
+      const track = rootRef.current.querySelector('.tagline-track')
+      const loop = gsap.to(track, {
+        xPercent: -50,
+        duration: 28,
+        ease: 'none',
+        repeat: -1,
+      })
+
+      let speedTween = null
+      ScrollTrigger.create({
+        trigger: '.tagline-block',
+        start: 'top bottom',
+        end: 'bottom top',
+        onUpdate: (self) => {
+          const v = Math.abs(self.getVelocity())
+          const boost = gsap.utils.clamp(1, 5, 1 + v / 900)
+          speedTween?.kill()
+          speedTween = gsap.timeline()
+          speedTween
+            .to(loop, { timeScale: boost, duration: 0.2, ease: 'power1.out' })
+            .to(loop, { timeScale: 1, duration: 1.2, ease: 'power2.out' })
+        },
+      })
     },
     { scope: rootRef }
   )
@@ -89,15 +96,26 @@ export default function MiriamSection() {
           </div>
         </div>
 
-        {/* Tagline como pieza gráfica */}
-        <div className="tagline-block mt-24 border-y hairline py-10 md:mt-36 md:py-14">
-          <p className="headline flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 text-[8vw] md:text-6xl lg:text-7xl">
-            {c.tagline.map((w, i) => (
-              <span key={w} className="tagline-word inline-block will-change-transform">
-                <span className={i % 2 === 1 ? 'text-brand' : 'text-text'}>{w}</span>
-              </span>
-            ))}
-          </p>
+        {/* Tagline como marquee cinético infinito */}
+      </div>
+
+      <div className="tagline-block mt-24 overflow-hidden border-y hairline py-8 md:mt-36 md:py-12">
+        <div className="tagline-track flex w-max items-baseline whitespace-nowrap will-change-transform">
+          {[0, 1].map((copia) => (
+            <span key={copia} aria-hidden={copia === 1} className="flex items-baseline">
+              {c.tagline.map((w, i) => (
+                <span
+                  key={`${copia}-${w}`}
+                  className="headline flex items-baseline text-[10vw] md:text-7xl lg:text-8xl"
+                >
+                  <span className={i % 2 === 1 ? 'text-brand' : 'text-text'}>{w}</span>
+                  <span aria-hidden="true" className="mx-6 text-brand/50 md:mx-10">
+                    ·
+                  </span>
+                </span>
+              ))}
+            </span>
+          ))}
         </div>
       </div>
     </section>
