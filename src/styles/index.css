@@ -1,0 +1,181 @@
+/* ============================================================
+   MIRIAM ZUNIGA × HIGO GLOBAL — Design Tokens & Base
+   Paleta: rojo Miriam protagonista sobre negro cálido,
+   atmósfera aurora (rojo → magenta → violeta) solo en fondos.
+   Teal/verde Higo: exclusivo módulos de producto.
+   ============================================================ */
+
+@import '@fontsource-variable/archivo';
+@import '@fontsource-variable/manrope';
+@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/fraunces';
+
+@import 'tailwindcss';
+
+@theme {
+  /* Superficies */
+  --color-bg: #0a0a0c;
+  --color-bg-alt: #141417;
+  --color-bg-elevated: #1b1b20;
+
+  /* Marca Miriam — único hue saturado protagonista */
+  --color-brand: #e11b22;
+  --color-brand-2: #b3141a;
+  --color-brand-accent: #ff3b41;
+
+  /* Atmósfera aurora — SOLO fondos/glows, nunca UI sólida */
+  --color-aurora-magenta: #c4157e;
+  --color-aurora-violet: #7b2fa8;
+  --color-aurora-deep: #3b1260;
+
+  /* Higo Global — SOLO módulos de producto/cobranding */
+  --color-higo-teal: #14808f;
+  --color-higo-green: #4fb33a;
+
+  /* Texto */
+  --color-text: #f5f5f7;
+  --color-text-muted: rgba(245, 245, 247, 0.66);
+  --color-text-faint: rgba(245, 245, 247, 0.4);
+  --color-line: rgba(245, 245, 247, 0.1);
+
+  /* Tipografía */
+  --font-display: 'Archivo Variable', system-ui, sans-serif;
+  --font-body: 'Manrope Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --font-serif: 'Fraunces Variable', Georgia, serif;
+
+  /* Motion OS */
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Base ---------- */
+
+html {
+  background-color: var(--color-bg);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: var(--color-text);
+}
+
+/* Focus visible AA */
+:focus-visible {
+  outline: 2px solid var(--color-brand-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Utilidades de marca ---------- */
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+@utility font-body {
+  font-family: var(--font-body);
+}
+@utility font-serif-accent {
+  font-family: var(--font-serif);
+}
+
+/* Eyebrow mono: uppercase tracking ancho */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
+/* Headline display expandido */
+@utility headline {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-stretch: 125%;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+/* Glow rojo de marca */
+@utility glow-brand {
+  box-shadow: 0 0 60px -12px rgba(225, 27, 34, 0.45);
+}
+
+@utility text-glow {
+  text-shadow: 0 0 40px rgba(255, 59, 65, 0.5);
+}
+
+/* Atmósfera aurora: gradiente rojo→magenta→violeta sobre negro */
+@utility bg-aurora {
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 20%, rgba(225, 27, 34, 0.14), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 60% 80%, rgba(196, 21, 126, 0.1), transparent 65%),
+    radial-gradient(ellipse 50% 40% at 90% 30%, rgba(123, 47, 168, 0.09), transparent 60%),
+    var(--color-bg);
+}
+
+/* Módulo Higo: profundidad teal, sin rojo */
+@utility bg-higo {
+  background:
+    radial-gradient(ellipse 70% 55% at 80% 15%, rgba(20, 128, 143, 0.13), transparent 60%),
+    radial-gradient(ellipse 50% 45% at 15% 85%, rgba(79, 179, 58, 0.07), transparent 60%),
+    var(--color-bg);
+}
+
+/* Línea divisoria suave */
+@utility hairline {
+  border-color: var(--color-line);
+}
+
+/* Scrollbar discreta */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a30;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-2);
+}
+
+/* Grain sutil fijo — pointer-events none, no repaint en scroll */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Cursor personalizado: solo desktop con puntero fino */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .has-custom-cursor,
+  .has-custom-cursor a,
+  .has-custom-cursor button {
+    cursor: none;
+  }
+}

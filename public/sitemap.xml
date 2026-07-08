@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 🔁 REEMPLAZAR dominio cuando esté definido -->
+  <url><loc>https://miriamzuniga.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://miriamzuniga.com/productos</loc><priority>0.9</priority></url>
+  <url><loc>https://miriamzuniga.com/oportunidad</loc><priority>0.9</priority></url>
+  <url><loc>https://miriamzuniga.com/contacto</loc><priority>0.7</priority></url>
+  <url><loc>https://miriamzuniga.com/legal</loc><priority>0.3</priority></url>
+</urlset>
