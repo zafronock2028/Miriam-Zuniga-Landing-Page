@@ -1,6 +1,10 @@
 /* Conversión → WhatsApp. Toda la página converge aquí. */
 
-const NUMBER = import.meta.env.VITE_MIRIAM_WHATSAPP_NUMBER || ''
+/* Número público de Miriam; el env lo puede sobreescribir por entorno */
+const NUMBER = import.meta.env.VITE_MIRIAM_WHATSAPP_NUMBER || '14088495126'
+
+/** Link oficial de registro al equipo (back office Higo) */
+export const REGISTRO_URL = 'https://point.vipyct.com/login?w=jbBqncrfQL8RI'
 
 /**
  * Construye la URL wa.me con mensaje dinámico.

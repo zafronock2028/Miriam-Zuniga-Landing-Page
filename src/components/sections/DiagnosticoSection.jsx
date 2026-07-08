@@ -8,8 +8,28 @@ export default function DiagnosticoSection({ respuestas, onChange }) {
   const c = copy.home.diagnostico
 
   return (
-    <section className="py-24 md:py-32">
-      <div className="mx-auto max-w-4xl px-5 md:px-8">
+    <section className="relative overflow-hidden py-24 md:py-32">
+      {/* Video background con velo oscuro para legibilidad AA */}
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/videos/form-bg.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="none"
+        aria-hidden="true"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(10,10,12,0.96) 0%, rgba(10,10,12,0.82) 50%, rgba(10,10,12,0.96) 100%)',
+        }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-4xl px-5 md:px-8">
         <SplitReveal as="h2" className="headline text-center text-4xl md:text-5xl">
           {c.headline}
         </SplitReveal>

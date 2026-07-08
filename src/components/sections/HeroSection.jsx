@@ -27,15 +27,17 @@ export default function HeroSection() {
     (context, contextSafe) => {
       if (prefersReducedMotion()) return
 
-      // Entrada: palabras del headline + retrato
       const tl = gsap.timeline({ delay: 1.3 })
       tl.fromTo(
         '.hero-word',
         { yPercent: 110 },
         { yPercent: 0, duration: 1, stagger: 0.08, ease: 'power3.out' }
+      ).fromTo(
+        '.hero-sub, .hero-ctas',
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out' },
+        '-=0.5'
       )
-        .fromTo('.hero-sub, .hero-ctas', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out' }, '-=0.5')
-        .fromTo('.hero-portrait', { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 1.4, ease: 'power3.out' }, 0.2)
 
       // Glow reactivo al mouse
       if (window.matchMedia('(pointer: fine)').matches) {
@@ -58,8 +60,27 @@ export default function HeroSection() {
   return (
     <section
       ref={rootRef}
-      className="bg-aurora relative flex min-h-[100dvh] items-center overflow-hidden"
+      className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden"
     >
+      {/* Video background con capa de marca */}
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/videos/hero-bg.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(10,10,12,0.72) 0%, rgba(10,10,12,0.55) 45%, rgba(10,10,12,0.9) 100%), radial-gradient(ellipse 70% 55% at 50% 40%, rgba(225,27,34,0.16), rgba(123,47,168,0.08) 60%, transparent 75%)',
+        }}
+      />
+
       {/* Glow que sigue al cursor */}
       <div
         ref={glowRef}
@@ -77,62 +98,47 @@ export default function HeroSection() {
         </Suspense>
       )}
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-10 px-5 pt-24 pb-12 md:grid-cols-2 md:px-8 md:pt-20 md:pb-0">
-        {/* Texto */}
-        <div>
-          <p className="eyebrow">{c.eyebrow}</p>
-          <h1 className="headline mt-6 text-[13vw] leading-[0.95] md:text-7xl lg:text-8xl">
-            {words.map((w, i) => (
-              <span key={i} className="inline-block overflow-hidden pb-[0.1em] -mb-[0.1em] align-bottom">
-                <span className={`hero-word inline-block will-change-transform ${
+      {/* Contenido centrado */}
+      <div className="relative z-10 mx-auto w-full max-w-4xl px-5 pt-20 pb-16 text-center md:px-8">
+        <p className="eyebrow">{c.eyebrow}</p>
+        <h1 className="headline mt-6 text-[13vw] leading-[0.95] md:text-8xl lg:text-9xl">
+          {words.map((w, i) => (
+            <span
+              key={i}
+              className="inline-block overflow-hidden pb-[0.1em] -mb-[0.1em] align-bottom"
+            >
+              <span
+                className={`hero-word inline-block will-change-transform ${
                   w === 'poder' ? 'text-brand text-glow' : ''
-                }`}>
-                  {w}
-                  {i < words.length - 1 ? ' ' : ''}
-                </span>
+                }`}
+              >
+                {w}
+                {i < words.length - 1 ? ' ' : ''}
               </span>
-            ))}
-          </h1>
-          <p className="hero-sub mt-6 max-w-md text-lg text-text-muted">{c.sub}</p>
+            </span>
+          ))}
+        </h1>
+        <p className="hero-sub mx-auto mt-8 max-w-xl text-lg text-text-muted md:text-xl">
+          {c.sub}
+        </p>
 
-          <div className="hero-ctas mt-10 flex flex-wrap items-center gap-4">
-            <MagneticButton
-              as="button"
-              type="button"
-              onClick={() => scrollToId('productos-destacados')}
-              className="rounded-full bg-brand px-7 py-4 font-semibold text-text transition-colors duration-200 hover:bg-brand-accent glow-brand"
-            >
-              {c.ctaPrimario}
-            </MagneticButton>
-            <MagneticButton
-              as="button"
-              type="button"
-              onClick={() => scrollToId('oportunidad')}
-              className="rounded-full border border-line px-7 py-4 font-semibold text-text transition-colors duration-200 hover:border-brand hover:text-brand-accent"
-            >
-              {c.ctaSecundario}
-            </MagneticButton>
-          </div>
-        </div>
-
-        {/* Retrato con rim-light rojo */}
-        <div className="hero-portrait relative mx-auto w-full max-w-md md:max-w-none">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 -z-10 translate-y-8 rounded-full opacity-60 blur-3xl"
-            style={{
-              background:
-                'radial-gradient(ellipse 60% 50% at 50% 60%, rgba(225,27,34,0.4), rgba(123,47,168,0.15) 60%, transparent 75%)',
-            }}
-          />
-          <img
-            src="/images/miriam-bio.png"
-            alt="Miriam Zuniga, líder y mentora en bienestar y longevidad"
-            className="mx-auto max-h-[70dvh] w-auto object-contain drop-shadow-[0_0_45px_rgba(225,27,34,0.3)]"
-            fetchPriority="high"
-            width="1013"
-            height="1520"
-          />
+        <div className="hero-ctas mt-10 flex flex-wrap items-center justify-center gap-4">
+          <MagneticButton
+            as="button"
+            type="button"
+            onClick={() => scrollToId('productos-destacados')}
+            className="rounded-full bg-brand px-7 py-4 font-semibold text-text transition-colors duration-200 hover:bg-brand-accent glow-brand"
+          >
+            {c.ctaPrimario}
+          </MagneticButton>
+          <MagneticButton
+            as="button"
+            type="button"
+            onClick={() => scrollToId('oportunidad')}
+            className="rounded-full border border-text/25 bg-bg/30 px-7 py-4 font-semibold text-text backdrop-blur-sm transition-colors duration-200 hover:border-brand hover:text-brand-accent"
+          >
+            {c.ctaSecundario}
+          </MagneticButton>
         </div>
       </div>
     </section>

@@ -53,22 +53,26 @@ export default function MiriamSection() {
     <section ref={rootRef} id="miriam" className="relative overflow-hidden py-24 md:py-40">
       <div className="mx-auto max-w-[1400px] px-5 md:px-8">
         <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-[1.1fr_1fr] md:gap-20">
-          {/* Video real de Miriam */}
-          <div className="relative order-2 overflow-hidden rounded-2xl md:order-1">
-            <video
-              className="miriam-video aspect-[4/5] w-full scale-110 object-cover"
-              src="/videos/landing-1.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              aria-label="Miriam Zuniga en acción con su comunidad"
-            />
+          {/* Retrato profesional con rim-light rojo */}
+          <div className="relative order-2 md:order-1">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent"
+              className="absolute inset-0 -z-10 translate-y-8 rounded-full opacity-60 blur-3xl"
+              style={{
+                background:
+                  'radial-gradient(ellipse 60% 50% at 50% 60%, rgba(225,27,34,0.35), rgba(123,47,168,0.14) 60%, transparent 75%)',
+              }}
             />
+            <div className="miriam-video overflow-hidden rounded-2xl">
+              <img
+                src="/images/miriam-bio.png"
+                alt="Miriam Zuniga, empresaria y mentora en bienestar"
+                className="aspect-[4/5] w-full scale-110 object-cover object-top drop-shadow-[0_0_45px_rgba(225,27,34,0.25)]"
+                loading="lazy"
+                width="1013"
+                height="1520"
+              />
+            </div>
           </div>
 
           <div className="order-1 md:order-2">

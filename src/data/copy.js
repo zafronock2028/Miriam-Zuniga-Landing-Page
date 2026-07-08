@@ -12,11 +12,12 @@ export const copy = {
       ctaSecundario: 'Únete a mi equipo',
     },
     miriam: {
-      headline: 'No vendo suplementos. Acompaño evoluciones.',
+      headline: 'Emprendedora de nacimiento. Líder por decisión.',
       bloques: [
-        'Soy Miriam Zuniga. Lidero una comunidad que decidió dejar de esperar sentirse bien.',
+        'Soy Miriam Zuniga. Emprendo desde adolescente y hoy construyo mi visión desde Estados Unidos, con la misma hambre del primer día.',
+        'Estoy transformando mi propia salud con Higo Global. Lo que recomiendo, primero lo vivo yo: más energía, más claridad, más presencia en mi negocio y en mi familia.',
+        'Como empresaria aprendí algo que no negocio: el impacto no se promete. Se demuestra.',
         'Mi propósito es simple: que recuperes tu vitalidad y, si lo eliges, que construyas libertad a mi lado.',
-        'El impacto no se promete. Se demuestra.',
       ],
       tagline: ['Libertad', 'Liderazgo', 'Visión', 'Impacto'],
     },

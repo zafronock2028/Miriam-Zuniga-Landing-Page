@@ -5,7 +5,7 @@ import SplitReveal from '../components/effects/SplitReveal'
 import FadeUp from '../components/effects/FadeUp'
 import MaskImage from '../components/effects/MaskImage'
 import MagneticButton from '../components/effects/MagneticButton'
-import { quickWhatsAppUrl } from '../lib/whatsapp'
+import { quickWhatsAppUrl, REGISTRO_URL } from '../lib/whatsapp'
 
 export default function Oportunidad() {
   useSeo(copy.oportunidad.seo)
@@ -24,7 +24,7 @@ export default function Oportunidad() {
             <FadeUp>
               <p className="mt-6 max-w-lg text-lg text-text-muted">{c.hero.sub}</p>
             </FadeUp>
-            <FadeUp className="mt-10">
+            <FadeUp className="mt-10 flex flex-wrap gap-4">
               <MagneticButton
                 as="a"
                 href={quickWhatsAppUrl('Hola Miriam, quiero conocer la oportunidad de negocio y unirme a tu equipo.')}
@@ -33,6 +33,15 @@ export default function Oportunidad() {
                 className="inline-block rounded-full bg-brand px-7 py-4 font-semibold text-text transition-colors duration-200 hover:bg-brand-accent glow-brand"
               >
                 {c.cta}
+              </MagneticButton>
+              <MagneticButton
+                as="a"
+                href={REGISTRO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full border border-text/25 px-7 py-4 font-semibold text-text transition-colors duration-200 hover:border-brand hover:text-brand-accent"
+              >
+                Registrarme ahora
               </MagneticButton>
             </FadeUp>
           </div>

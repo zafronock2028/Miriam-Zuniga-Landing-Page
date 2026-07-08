@@ -48,16 +48,26 @@ function ProductCard({ p }) {
       ref={cardRef}
       className="group relative flex flex-col overflow-hidden rounded-2xl border hairline bg-bg-alt p-6 will-change-transform"
     >
-      <div className="relative mx-auto aspect-square w-full max-w-[240px]">
+      <div className="relative mx-auto aspect-square w-full max-w-[240px] overflow-hidden rounded-xl">
+        {/* Video detrás del producto (producto PNG sin fondo encima) */}
+        <video
+          className="absolute inset-0 h-full w-full object-cover opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+          src="/videos/producto-bg.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="none"
+          aria-hidden="true"
+        />
         <div
           aria-hidden="true"
-          className="absolute inset-4 rounded-full opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-60"
-          style={{ background: 'radial-gradient(circle, rgba(20,128,143,0.35), transparent 70%)' }}
+          className="absolute inset-0 bg-gradient-to-t from-bg-alt via-transparent to-transparent"
         />
         <img
           src={p.imagen}
           alt={p.nombre}
-          className="relative h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+          className="relative h-full w-full object-contain p-3 drop-shadow-[0_12px_30px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
           width="480"
           height="480"
