@@ -97,7 +97,7 @@ export default function Oportunidad() {
         <div className="mx-auto max-w-[1400px] px-5 md:px-8">
           <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[1fr_1.2fr] md:gap-20">
             <MaskImage
-              src="/images/miriam-despedida.jpg"
+              src="/images/miriam-productos.jpg"
               alt="Miriam Zuniga, mentora de tu evolución"
               className="aspect-[4/5] rounded-2xl md:sticky md:top-28"
             />
