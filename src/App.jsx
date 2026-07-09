@@ -6,6 +6,7 @@ import Footer from './components/site/Footer'
 import Preloader from './components/site/Preloader'
 import PageTransition from './components/site/PageTransition'
 import CustomCursor from './components/site/CustomCursor'
+import MusicToggle from './components/site/MusicToggle'
 import { useLenis } from './lib/useLenis'
 import Home from './pages/Home'
 
@@ -39,6 +40,7 @@ export default function App() {
           </main>
           <Footer />
         </PageTransition>
+        <MusicToggle />
         <Toaster theme="dark" position="bottom-center" />
       </div>
     </BrowserRouter>
