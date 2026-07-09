@@ -16,7 +16,7 @@ export default function MusicToggle() {
     const audio = new Audio('/musica-fondo.mp3')
     audio.loop = true
     audio.volume = 0
-    audio.preload = 'none'
+    audio.preload = 'auto'
     audioRef.current = audio
 
     // Si el usuario la apagó antes, respetar
@@ -43,6 +43,18 @@ export default function MusicToggle() {
     window.addEventListener('pointerdown', arrancar)
     window.addEventListener('keydown', arrancar)
     window.addEventListener('scroll', arrancar, { passive: true })
+
+    // Intento inmediato al cargar: funciona si el navegador lo permite
+    // (permiso de autoplay concedido o visitas previas con interacción).
+    // Si lo bloquea, quedan armados los listeners de primer gesto.
+    audio
+      .play()
+      .then(() => {
+        setPlaying(true)
+        gsap.to(audio, { volume: VOLUMEN, duration: 2.5, ease: 'power1.out' })
+        quitar()
+      })
+      .catch(() => {})
 
     return () => {
       quitar()
