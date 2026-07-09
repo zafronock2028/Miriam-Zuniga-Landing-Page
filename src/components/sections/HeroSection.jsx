@@ -27,17 +27,35 @@ export default function HeroSection() {
     (context, contextSafe) => {
       if (prefersReducedMotion()) return
 
-      const tl = gsap.timeline({ delay: 1.3 })
+      const tl = gsap.timeline({ delay: 1.35 })
+      // Logo de marca: revela con blur + glow que respira
       tl.fromTo(
-        '.hero-word',
-        { yPercent: 110 },
-        { yPercent: 0, duration: 1, stagger: 0.08, ease: 'power3.out' }
-      ).fromTo(
-        '.hero-sub, .hero-ctas',
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out' },
-        '-=0.5'
+        '.hero-logo',
+        { y: 40, opacity: 0, filter: 'blur(16px)', scale: 1.12 },
+        { y: 0, opacity: 1, filter: 'blur(0px)', scale: 1, duration: 1.1, ease: 'power3.out' }
       )
+        .fromTo(
+          '.hero-word',
+          { yPercent: 110 },
+          { yPercent: 0, duration: 1, stagger: 0.08, ease: 'power3.out' },
+          '-=0.55'
+        )
+        .fromTo(
+          '.hero-sub, .hero-ctas',
+          { y: 24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out' },
+          '-=0.5'
+        )
+
+      // Pulso de glow permanente en el logo, muy sutil
+      gsap.to('.hero-logo', {
+        filter: 'drop-shadow(0 0 32px rgba(225,27,34,0.55))',
+        duration: 2.4,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+        delay: 2.6,
+      })
 
       // Glow reactivo al mouse
       if (window.matchMedia('(pointer: fine)').matches) {
@@ -100,8 +118,16 @@ export default function HeroSection() {
 
       {/* Contenido centrado */}
       <div className="relative z-10 mx-auto w-full max-w-4xl px-5 pt-20 pb-16 text-center md:px-8">
-        <p className="eyebrow">{c.eyebrow}</p>
-        <h1 className="headline mt-6 text-[13vw] leading-[0.95] md:text-8xl lg:text-9xl">
+        {/* Logo de marca personal, protagonista sobre el headline */}
+        <img
+          src="/images/logo-mz-blanco.png"
+          alt="Miriam Zuniga. Libertad, liderazgo, visión, impacto."
+          className="hero-logo mx-auto w-[70vw] max-w-sm drop-shadow-[0_0_24px_rgba(225,27,34,0.35)] md:max-w-md"
+          width="880"
+          height="560"
+          fetchPriority="high"
+        />
+        <h1 className="headline mt-8 text-[13vw] leading-[0.95] md:text-8xl lg:text-9xl">
           {words.map((w, i) => (
             <span
               key={i}

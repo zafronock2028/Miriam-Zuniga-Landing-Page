@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSeo, injectJsonLd } from '../lib/seo'
 import HeroSection from '../components/sections/HeroSection'
 import MiriamSection from '../components/sections/MiriamSection'
+import TestimonioMiriamSection from '../components/sections/TestimonioMiriamSection'
 import HigoSection from '../components/sections/HigoSection'
 import ProductReveal from '../components/sections/ProductReveal'
 import FeaturedProducts from '../components/sections/FeaturedProducts'
@@ -23,6 +24,7 @@ export default function Home() {
     <>
       <HeroSection />
       <MiriamSection />
+      <TestimonioMiriamSection />
       <HigoSection />
       <ProductReveal />
       <FeaturedProducts />

@@ -6,7 +6,7 @@ import { copy } from '../../data/copy'
    marco oscuro que elimina los bordes blancos. Marquee doble lento. */
 
 const TESTIMONIOS = [
-  { img: 1, quote: 'Desde que empecé, mi energía cambió por completo. Gracias Miriam por no soltarme.' },
+  { img: 17, quote: 'Desde que empecé, mi energía cambió por completo. Gracias Miriam por no soltarme.' },
   { img: 3, quote: 'Duermo mejor y rindo más en mi trabajo. Miriam me guio en todo el proceso.' },
   { img: 5, quote: 'Mi digestión mejoró muchísimo. Gracias por tu paciencia y seguimiento, Miriam.' },
   { img: 7, quote: 'Me siento con más vitalidad que hace años. Eternamente agradecida contigo.' },
