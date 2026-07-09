@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from '../../lib/motion'
 
-/* Música de fondo. Los navegadores bloquean autoplay con sonido, así que
-   arranca en la primera interacción del usuario (scroll, click o tecla),
-   con fade-in suave. Botón flotante para silenciar; preferencia persiste. */
+/* Música de fondo. Suena automáticamente al entrar: intento directo al
+   cargar y, si el navegador lo bloquea, arranca con el primer gesto
+   (scroll, click, tecla o touch). El botón solo silencia la sesión. */
 
-const STORAGE_KEY = 'mz-musica'
 const VOLUMEN = 0.32
 
 export default function MusicToggle() {
@@ -18,9 +17,6 @@ export default function MusicToggle() {
     audio.volume = 0
     audio.preload = 'auto'
     audioRef.current = audio
-
-    // Si el usuario la apagó antes, respetar
-    if (localStorage.getItem(STORAGE_KEY) === 'off') return
 
     const arrancar = (e) => {
       // Si la primera interacción es el propio botón, lo maneja onClick
@@ -36,13 +32,17 @@ export default function MusicToggle() {
     }
     const quitar = () => {
       window.removeEventListener('pointerdown', arrancar)
+      window.removeEventListener('touchstart', arrancar)
       window.removeEventListener('keydown', arrancar)
       window.removeEventListener('scroll', arrancar)
+      window.removeEventListener('wheel', arrancar)
     }
 
     window.addEventListener('pointerdown', arrancar)
+    window.addEventListener('touchstart', arrancar, { passive: true })
     window.addEventListener('keydown', arrancar)
     window.addEventListener('scroll', arrancar, { passive: true })
+    window.addEventListener('wheel', arrancar, { passive: true })
 
     // Intento inmediato al cargar: funciona si el navegador lo permite
     // (permiso de autoplay concedido o visitas previas con interacción).
@@ -75,12 +75,10 @@ export default function MusicToggle() {
         onComplete: () => audio.pause(),
       })
       setPlaying(false)
-      localStorage.setItem(STORAGE_KEY, 'off')
     } else {
       audio.play().then(() => {
         gsap.to(audio, { volume: VOLUMEN, duration: 1.2, ease: 'power1.out' })
         setPlaying(true)
-        localStorage.setItem(STORAGE_KEY, 'on')
       }).catch(() => {})
     }
   }
