@@ -8,7 +8,7 @@ gsap.registerPlugin(useGSAP)
    por capas, palabra gigante de fondo ANTES→HOY, barrido rojo revela el
    "después" a color, y el testimonio de Miriam se narra por etapas. */
 
-const ANTES = ['/images/antes-1.jpg', '/images/antes-2.jpg', '/images/antes-3.jpg']
+const ANTES = ['/images/antes-1.jpg', '/images/antes-2.jpg', '/images/antes-3b.jpg']
 const DESPUES = ['/images/despues-1.jpg', '/images/despues-2.jpg', '/images/despues-3.jpg']
 
 const ETAPAS = [
